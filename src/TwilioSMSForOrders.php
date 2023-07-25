@@ -12,6 +12,7 @@ class TwilioSMSForOrders
     private $twilio_phone_number;
     private $recipient_phone_number;
     private $is_enabled;
+    private $message_template;
 
     public function __construct()
     {
@@ -20,6 +21,7 @@ class TwilioSMSForOrders
         $this->twilio_phone_number = get_option('twilio_phone_number');
         $this->recipient_phone_number = get_option('recipient_phone_number');
         $this->is_enabled = get_option('twilio_sms_enabled');
+        $this->message_template = get_option('twilio_sms_template');
     }
 
     public function send_order_sms($order_id)
@@ -44,6 +46,9 @@ class TwilioSMSForOrders
             $this->message_template
         );
 
+        // Add line break and website URL
+        $message .= "\n\nvia - " . get_site_url();
+
         try {
             $client = new Client($this->twilio_account_sid, $this->twilio_auth_token);
             $client->messages->create(
@@ -56,6 +61,7 @@ class TwilioSMSForOrders
         } catch (Exception $e) {
             error_log('Failed to send SMS via Twilio: ' . $e->getMessage());
         }
+
     }
 
 }

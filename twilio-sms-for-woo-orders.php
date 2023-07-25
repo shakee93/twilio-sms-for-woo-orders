@@ -34,3 +34,13 @@ function activate_twilio_sms_for_orders()
         update_option('message_template', $default_message_template);
     }
 }
+
+// Add settings link on plugin page
+add_filter('plugin_action_links_' . plugin_basename(__FILE__), 'add_settings_link');
+
+function add_settings_link($links)
+{
+    $settings_link = '<a href="options-general.php?page=twilio-sms-for-orders">' . __('Settings') . '</a>';
+    array_push($links, $settings_link);
+    return $links;
+}

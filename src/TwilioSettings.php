@@ -28,7 +28,7 @@ class TwilioSettings
         register_setting('twilio_sms_for_orders', 'twilio_phone_number');
         register_setting('twilio_sms_for_orders', 'recipient_phone_number');
         register_setting('twilio_sms_for_orders', 'twilio_sms_enabled');
-        register_setting('twilio_sms_for_orders', 'message_template');
+        register_setting('twilio_sms_for_orders', 'twilio_sms_template');
     }
 
     public function settings_page_content()
@@ -62,7 +62,7 @@ class TwilioSettings
                 <tr valign="top">
                     <th scope="row">Message Template</th>
                     <td>
-                        <textarea name="message_template" rows="5" cols="50"><?php echo esc_textarea(get_option('message_template')); ?></textarea>
+                        <textarea name="twilio_sms_template" rows="5" cols="50"><?php echo esc_textarea(get_option('twilio_sms_template')); ?></textarea>
                         <p class="description">
                             You can use placeholders in your message: {order_id}, {customer_name}, {order_total}.
                         </p>
